@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e # halt script on error
 
+
 if [ "$TRAVIS_PULL_REQUEST" != "false" ] ; then
    # hey that's a pull request
     curl -H "Authorization: token ${GITHUB_TOKEN}" -X POST \
