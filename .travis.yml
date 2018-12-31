@@ -1,5 +1,7 @@
 language: ruby
 cache: bundler
+install:
+  - pip install -r requirements.txt
 branches:
   only:
   - master
@@ -23,4 +25,4 @@ deploy:
   on:
     all_branches: true
 after_success:
-    - ./scripts/ci_github_comment.sh
+    - ./scripts/ci_preview.sh
