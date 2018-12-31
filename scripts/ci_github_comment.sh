@@ -7,3 +7,4 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ] ; then
     -d "{\"body\": \"Hello world\"}" \
     "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 fi
+
