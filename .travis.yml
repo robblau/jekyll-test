@@ -16,21 +16,16 @@ script:
   - JEKYLL_ENV=production bundle exec jekyll build --destination _site
 
 deploy:
+  # deploy to github-pages:
+  # copy contents of _site folder to gh-pages branch and push
 - provider: pages
   local-dir: ./_site
   target-branch: gh-pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   on:
+    # only do this when on the master branch
     branch: master
-- provider: s3
-  local_dir: ./_site
-  access_key_id: $AWS_S3_ACCESS_KEY
-  secret_access_key: $AWS_S3_ACCESS_TOKEN
-  bucket: "sgpipelinetest/$TRAVIS_BUILD_NUMBER"
-  skip_cleanup: true
-  upload-dir: travis-builds
-  on:
-    all_branches: true
+
 after_success:
-    - ./scripts/ci_preview.sh
+    - python ./scripts/ci_preview.py
