@@ -17,8 +17,6 @@ title: Shotgun Developer
 description: Resources for Shotgun developers, including API documentation, Toolkit and others.
 baseurl: "/jekyll-test" # the subpath of your site, e.g. /blog
 url: "https://manneohrstrom.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
 
 # Build settings
 markdown: kramdown
