@@ -1,6 +1,4 @@
-language:
-- ruby
-- python
+language: python
 
 python:
     - "2.7"
@@ -14,7 +12,7 @@ before_install:
 
 install:
   - bundle install --jobs=3 --retry=3 --deployment
-  - pip install --user -r requirements.txt
+  - pip install -r requirements.txt
 
 script:
   - ./scripts_travis/build_docs.sh
