@@ -1,5 +1,7 @@
 language: ruby
-cache: bundler
+cache:
+- bundler
+- pip
 
 before_install:
   - sudo apt-get install -y pandoc
