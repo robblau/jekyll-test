@@ -21,7 +21,7 @@ url: "https://manneohrstrom.github.io" # the base hostname & protocol for your s
 # Build settings
 markdown: kramdown
 theme: just-the-docs
-source: docs
+
 #plugins:
 #  - jekyll-feed
 
