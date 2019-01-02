@@ -6,7 +6,7 @@ python:
 cache:
   pip: true
   directories:
-     - $HOME/vendor/bundle
+     - $TRAVIS_BUILD_DIR/vendor/bundle
 
 before_install:
   - sudo apt-get install -y pandoc
