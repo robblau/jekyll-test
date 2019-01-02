@@ -1,4 +1,8 @@
 sphinx==1.8.3
 git+git://github.com/manneohrstrom/sphinx-markdown-builder@master#egg=sphinx-markdown-builder
 boto3==1.9.71
+
+# working around travis issue
+# Could not import extension sphinx.builders.linkcheck (exception: No module named ordered_dict)
+# see see https://github.com/ystia/yorc/pull/178
 urllib3[secure]==1.23

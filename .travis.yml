@@ -13,7 +13,8 @@ before_install:
   - sudo apt-get install -y pandoc
 
 install:
-  - sudo pip install -r requirements.txt
+  - bundle install
+  - pip install --user -r requirements.txt
 
 script:
   - ./scripts_travis/build_docs.sh
