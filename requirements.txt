@@ -1,3 +1,4 @@
 sphinx==1.8.3
 git+git://github.com/manneohrstrom/sphinx-markdown-builder@master#egg=sphinx-markdown-builder
 boto3==1.9.71
+urllib3[secure]==1.23
