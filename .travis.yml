@@ -9,7 +9,7 @@ install:
   - bundle install
 
 script:
-  - ./scripts/build_docs.sh
+  - ./scripts_travis/build_docs.sh
 
 deploy:
   # deploy to github-pages:

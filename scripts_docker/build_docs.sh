@@ -9,7 +9,6 @@ fi
 # exit on error
 set -e
 
-ROOT_FOLDER=/app
 BUILD_FOLDER=${ROOT_FOLDER}/_build
 WEBSITE_FOLDER=${BUILD_FOLDER}/jekyll
 
