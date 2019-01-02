@@ -1,4 +1,10 @@
-language: ruby
+language:
+- ruby
+- python
+
+python:
+    - "2.7"
+
 cache:
 - bundler
 - pip
