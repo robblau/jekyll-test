@@ -1,7 +1,7 @@
 
 
 FROM centos:7
-LABEL maintainer="Autodesk <info@autodesk.com>"
+LABEL maintainer="manne@shotgunsoftware.com>"
 
 #
 # Build
