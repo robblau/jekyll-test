@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # make sure we are inside docker world
-if [ ! -f /.dockerenv ]; then
-    echo "You need to run this script from inside a docker container";
+if [[ ! -v ROOT_FOLDER ]]; then
+    echo "ROOT_FOLDER must be specified"
     exit 1
 fi
 
