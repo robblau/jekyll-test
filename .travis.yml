@@ -30,5 +30,5 @@ deploy:
     # only do this when on the master branch
     branch: master
 
-#after_success:
-#    - python ./scripts/ci_preview.py
+after_success:
+    - python ./scripts_travis/ci_preview.py
