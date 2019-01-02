@@ -6,6 +6,7 @@ python:
 cache:
   pip: true
   directories:
+     # manually cache ruby dependencies
      - $TRAVIS_BUILD_DIR/vendor/bundle
 
 before_install:
