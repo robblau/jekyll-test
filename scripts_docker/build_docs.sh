@@ -13,7 +13,7 @@ BUILD_FOLDER=${ROOT_FOLDER}/_build
 WEBSITE_FOLDER=${BUILD_FOLDER}/jekyll
 
 echo "------------------------------------------------------"
-echo "doc build process starting"
+echo "Doc build process starting: $BUILD_FOLDER"
 echo "------------------------------------------------------"
 
 echo "cleaning out build location"
