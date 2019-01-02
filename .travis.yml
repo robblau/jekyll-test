@@ -1,25 +1,19 @@
 language: ruby
-cache: bundler
+
+services:
+  - docker
 
 before_install:
-  - sudo apt-get install -y pandoc
-
-install:
-  - sudo pip install -r requirements.txt
-  - bundle install
-
-branches:
-  only:
-  - master
+  - docker build -t tk-docs .
 
 script:
-  - JEKYLL_ENV=production bundle exec jekyll build --destination _site
+  - ./scripts/build_docs.sh
 
 deploy:
   # deploy to github-pages:
   # copy contents of _site folder to gh-pages branch and push
 - provider: pages
-  local-dir: ./_site
+  local-dir: ./_build/jekyll
   target-branch: gh-pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
@@ -27,5 +21,5 @@ deploy:
     # only do this when on the master branch
     branch: master
 
-after_success:
-    - python ./scripts/ci_preview.py
+#after_success:
+#    - python ./scripts/ci_preview.py
