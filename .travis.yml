@@ -6,8 +6,8 @@ cache:
 before_install:
   - sudo apt-get install -y pandoc
 
-install:
-  - sudo pip install -r requirements.txt
+#install:
+#  - sudo pip install -r requirements.txt
 
 script:
   - ./scripts_travis/build_docs.sh
