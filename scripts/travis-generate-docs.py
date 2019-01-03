@@ -44,12 +44,11 @@ if os.environ.get("TRAVIS_PULL_REQUEST") == "true":
     # build the doc
     doc_command = "{script} --url={url} --url-path={path} --source={source} --output={output}".format(
         script=doc_script,
-        url=S3_URL,
-        url-path=s3_PATH,
+        url=S3_WEB_URL,
+        path=S3_PATH,
         source=source_path,
-        output=output_path,
+        output=output_path
     )
-
     print "Building docs: '{}'".format(doc_command)
     if os.system(doc_command) != 0:
         sys.exit(1)
@@ -77,16 +76,18 @@ else:
 
     print "On master branch - will build for gh-pages branch"
 
+    # build the doc
     doc_command = "{script} --url={url} --url-path={path} --source={source} --output={output}".format(
         script=doc_script,
         url=GITHUB_PAGES_URL,
-        url-path=GITHUB_PAGES_PATH,
+        path=GITHUB_PAGES_PATH,
         source=source_path,
         output=output_path
     )
     print "Building docs: '{}'".format(doc_command)
     if os.system(doc_command) != 0:
         sys.exit(1)
+
 
 print "doc generation completed successfully."
 
