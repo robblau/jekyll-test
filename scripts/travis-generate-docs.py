@@ -1,8 +1,11 @@
 import boto3
 import os
 import sys
+import mimetypes
 
+print "----------------------------------"
 print "Begin travis doc generation"
+print "----------------------------------"
 
 S3_BUCKET = "doctest3"
 S3_WEB_URL = "http://doctest3.s3-website.eu-west-2.amazonaws.com"
@@ -12,7 +15,7 @@ GITHUB_PAGES_URL = "https://manneohrstrom.github.io"
 GITHUB_PAGES_PATH = "/jekyll-test"
 
 
-def upload_folder_to_s3(bucket, src, dst):
+def upload_folder_to_s3(s3_client, src, dst):
     """
     Upload folder to S3
     """
@@ -23,11 +26,19 @@ def upload_folder_to_s3(bucket, src, dst):
         dstname = os.path.join(dst, name)
 
         if os.path.isdir(srcname):
-            upload_folder_to_s3(bucket, srcname, dstname)
+            upload_folder_to_s3(s3_client, srcname, dstname)
         else:
             print "upload '{}' -> '{}'".format(srcname, dstname)
-            bucket.upload_file(srcname, dstname)
-
+            (mime_type, _) = mimetypes.guess_type(srcname)
+            if mime_type is None:
+                mime_type = "application/octet-stream"
+            with open(srcname, "rb") as file_handle:
+                s3_client.put_object(
+                    Bucket=S3_BUCKET,
+                    ContentType=mime_type,
+                    Key=dstname,
+                    Body=file_handle
+                )
 
 root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 doc_script = os.path.join(root_path, "doc_builder", "scripts", "build_docs.sh")
@@ -35,7 +46,7 @@ output_path = os.path.join(root_path, "_build")
 source_path = os.path.join(root_path, "docs")
 
 
-if os.environ.get("TRAVIS_PULL_REQUEST") == "true":
+if os.environ.get("TRAVIS_BRANCH") != "master" or os.environ.get("TRAVIS_PULL_REQUEST") != "false":
 
     print "Inside a pull request - will upload preview to S3"
 
@@ -59,18 +70,24 @@ if os.environ.get("TRAVIS_PULL_REQUEST") == "true":
         aws_access_key_id=os.environ["AWS_S3_ACCESS_KEY"],
         aws_secret_access_key=os.environ["AWS_S3_ACCESS_TOKEN"]
     )
-    s3_bucket = s3_client.Bucket(S3_BUCKET)
-    upload_folder_to_s3(s3_bucket, output_path, S3_PATH)
 
-    print 'generating pull request comment...'
-    cmd =  "curl -H 'Authorization: token {token}' -X POST ".format(token=os.environ["GITHUB_TOKEN"])
-    cmd += "-d '{\"body\": \"Documentation here: {url}\"}' ".format(url=s3_full_url)
-    cmd += "'https://api.github.com/repos/{repo_slug}/issues/{pull_request}/comments'".format(
-        repo_slug=os.environ["TRAVIS_REPO_SLUG"],
-        pull_request=os.environ["TRAVIS_PULL_REQUEST"]
-    )
-    os.system(cmd)
+    # note: skip the first slash when uploading to S3 in order to generate a correct path.
+    upload_folder_to_s3(s3_client, output_path, S3_PATH[1:])
 
+    if os.environ.get("TRAVIS_PULL_REQUEST") != "false":
+        print 'generating pull request comment...'
+        cmd = "curl -H 'Authorization: token {token}' -X POST ".format(token=os.environ["GITHUB_TOKEN"])
+        cmd += "-d '{\"body\": \"[Documentation](%s)\"}' " % (s3_full_url,)
+        cmd += "'https://api.github.com/repos/{repo_slug}/issues/{pull_request}/comments'".format(
+            repo_slug=os.environ["TRAVIS_REPO_SLUG"],
+            pull_request=os.environ["TRAVIS_PULL_REQUEST"]
+        )
+        os.system(cmd)
+
+    print "-------------------------------------------------"
+    print "Documentation build can be found here:"
+    print s3_full_url
+    print "-------------------------------------------------"
 
 else:
 
