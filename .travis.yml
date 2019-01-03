@@ -7,23 +7,23 @@ cache:
   pip: true
   directories:
      # manually cache ruby dependencies
-     - $TRAVIS_BUILD_DIR/vendor/bundle
+     - $TRAVIS_BUILD_DIR/doc_builder/vendor/bundle
 
 before_install:
   - sudo apt-get install -y pandoc
 
 install:
-  - bundle install --deployment
-  - pip install -r requirements.txt
+  - bundle install --gemfile=./doc_builder/Gemfile --deployment
+  - pip install -r ./doc_builder/requirements.txt
 
 script:
-  - ./scripts_travis/build_docs.sh
+  - python ./scripts/travis-generate-docs.py
 
 deploy:
   # deploy to github-pages:
   # copy contents of _site folder to gh-pages branch and push
 - provider: pages
-  local-dir: ./_build/jekyll
+  local-dir: ./_build
   target-branch: gh-pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
@@ -31,5 +31,3 @@ deploy:
     # only do this when on the master branch
     branch: master
 
-after_success:
-    - python ./scripts_travis/ci_preview.py

@@ -66,7 +66,7 @@ RUN gem install bundler --no-document && \
     bundle install
 
 # Run app.py when the container launches
-CMD ["./scripts_docker/build_docs.sh"]
+CMD ["./scripts/build_docs.sh"]
 
 
 
