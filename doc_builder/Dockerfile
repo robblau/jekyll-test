@@ -62,9 +62,9 @@ COPY ./requirements.txt /app
 # Install any needed packages specified in requirements.txt
 RUN pip install -r requirements.txt
 
-RUN gem install bundler --no-document && \
-    bundle config --global jobs 7 && \
-    bundle install
+RUN gem install bundler -v 1.17.2 --no-document
+RUN bundle config --global jobs 7
+RUN bundle install
 
 
 
