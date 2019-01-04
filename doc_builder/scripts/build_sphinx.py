@@ -1,7 +1,9 @@
 import sys
 import shutil
+import pprint
 import subprocess
 import commands
+from ruamel.yaml import YAML
 import os
 
 input_folder = os.path.abspath(sys.argv[1])
@@ -16,6 +18,7 @@ sphinx_config_path = os.path.join(root_path, "sphinx")
 
 def sphinx_to_markdown(folder):
 
+    # move the folder to be named .rst and replace with md build
     source_folder = "{}.rst".format(folder)
     shutil.move(folder, source_folder)
 
@@ -61,5 +64,13 @@ if os.path.exists(os.path.join(input_folder, "index.rst")):
     print 'detected sphinx build...'
     sphinx_to_markdown(input_folder)
 
-if os.path.exists(os.path.join(input_folder, "sphinx.yml")):
+yaml_file = os.path.join(input_folder, "sphinx.yml")
+
+if os.path.exists(yaml_file):
     print 'detected sphinx config...'
+    yaml = YAML(typ='safe')
+    with open(yaml_file, "rt") as fh:
+        yaml_data = yaml.load(fh)
+    pprint.pprint(yaml_data)
+
+
