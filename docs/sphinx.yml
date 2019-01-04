@@ -7,10 +7,10 @@ repositories:
     parent: /
   Utilities Framework:
     git_url: git@github.com:shotgunsoftware/tk-framework-shotgunutils.git
-    parent: Frameworks
+    parent: Toolkit Framework Reference
   Widget Framework:
     git_url: git@github.com:shotgunsoftware/tk-framework-qtwidgets.git
-    parent: Frameworks
+    parent: Toolkit Framework Reference
   Nuke Write Node:
     git_url: git@github.com:shotgunsoftware/tk-nuke-writenode.git
     parent: Toolkit App Reference
