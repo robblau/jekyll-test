@@ -40,12 +40,15 @@ except:
 try:
     # components also use PySide, so make sure  we have this loaded up correctly
     # before starting auto-doc.
+    import PySide
     from PySide import QtCore, QtGui
     sgtk.platform.qt.QtCore = QtCore
     sgtk.platform.qt.QtGui = QtGui
+    print "Using PySide %s" % PySide.__version__
+    print "Using QT %s" % QtCore.__version__
 except:
     # not every documentable environment needs Qt
-    pass
+    print "Could not detect PySide"
 
 # some frameworks import other frameworks and this means that they have
 # an import_framework method call that executes right at load time.
