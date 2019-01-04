@@ -34,6 +34,7 @@ RUN yum update -y && \
     openssl-devel \
     libreadline-dev \
     zlib-devel \
+    python-pyside \
     yum clean all
 
 # Ruby
@@ -65,8 +66,7 @@ RUN gem install bundler --no-document && \
     bundle config --global jobs 7 && \
     bundle install
 
-# Run app.py when the container launches
-#CMD ["./scripts/build_docs.sh"]
+
 
 
 
