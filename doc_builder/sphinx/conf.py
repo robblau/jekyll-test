@@ -342,13 +342,6 @@ htmlhelp_basename = "tkdoc"
 intersphinx_mapping = {
     "python": ("https://docs.python.org/2", None),
     "PySide": ("http://pyside.github.io/docs/pyside/", None),
-    "sgtk": ("http://developer.shotgunsoftware.com/tk-core/", None),
-    "tk-framework-qtwidgets": ("http://developer.shotgunsoftware.com/tk-framework-qtwidgets/", None),
-    "tk-framework-shotgunutils": ("http://developer.shotgunsoftware.com/tk-framework-shotgunutils/", None),
-    #"tk-framework-login": ("http://developer.shotgunsoftware.com/tk-framework-login/", None),
-    #"tk-framework-adminui": ("http://developer.shotgunsoftware.com/tk-framework-adminui/", None),
-    #"tk-framework-perforce": ("http://developer.shotgunsoftware.com/tk-framework-perforce/", None),
-    'shotgun-api3' : ('http://developer.shotgunsoftware.com/python-api', None),
     }
 
 autodoc_member_order = "bysource"

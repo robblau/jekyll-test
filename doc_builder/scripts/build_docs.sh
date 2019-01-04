@@ -37,11 +37,12 @@ echo "---------------------------------------------------"
 
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-TMP_BUILD_FOLDER=${THIS_DIR}/../_build/markdown_src
+TMP_FOLDER=${THIS_DIR}/../_build
+TMP_BUILD_FOLDER=${TMP_FOLDER}/markdown_src
 WEBSITE_FOLDER=${OUTPUT}
 
-echo "cleaning out internal build location '${TMP_BUILD_FOLDER}'..."
-rm -rf ${TMP_BUILD_FOLDER}
+echo "cleaning out internal build location '${TMP_FOLDER}'..."
+rm -rf ${TMP_FOLDER}
 
 echo "cleaning out final build location '${WEBSITE_FOLDER}'..."
 rm -rf ${WEBSITE_FOLDER}

@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Shotgun Event Daemon
-nav_order: 4
 ---
 
 # The Shotgun Event Daemon

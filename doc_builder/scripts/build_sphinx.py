@@ -18,7 +18,6 @@ def sphinx_to_markdown(folder):
 
     source_folder = "{}.rst".format(folder)
     shutil.move(folder, source_folder)
-    #os.makedirs()
 
     cmd = "sphinx-build -b markdown -c {config_path} -D project='foo' -D release='bar' -D version='0.0.0' {input} {output}".format(config_path=sphinx_config_path, input=source_folder, output=folder)
     print "executing {}".format(cmd)
@@ -44,55 +43,23 @@ def sphinx_to_markdown(folder):
                 # nav_order: 11
                 # ---
 
-                frontmatter = "---\nlayout: default\ntitle: {title}\n---\n\n".format(title=name)
+                # title is the filename without extension, capitalized
+                (name_no_ext, _) = os.path.splitext(name)
+
+                frontmatter = "---\nlayout: default\ntitle: {title}\n---\n\n- TOC\n{{:toc}}\n\n".format(
+                    title=name_no_ext.capitalize()
+                )
                 content = frontmatter + content
 
                 fh.write(content)
 
 
 
-def process_folders(folder):
-    """
-    Upload folder to S3
-    """
-    if os.path.exists(os.path.join(folder, "external.conf")):
-        # external rst folder - note: we do not recurse further
-        print "Folder {} is an external sphinx reference...".format(folder)
-    elif os.path.exists(os.path.join(folder, "index.rst")):
-        # rst folder - note: we do not recurse further
-        print "Folder {} is rst-folder which need converting...".format(folder)
-        sphinx_to_markdown(folder)
-    else:
-        # find folders and recurse into them
-        print "no sphinx pre-processing for folder {}...".format(folder)
-        for name in os.listdir(folder):
-            file_name = os.path.join(folder, name)
-            if os.path.isdir(file_name):
-                process_folders(file_name)
 
 
+if os.path.exists(os.path.join(input_folder, "index.rst")):
+    print 'detected sphinx build...'
+    sphinx_to_markdown(input_folder)
 
-
-
-
-#
-# echo "cloning core..."
-# TMP_SPHINX_FOLDER=${TMP_BUILD_FOLDER}_spx
-# rm -rf ${TMP_SPHINX_FOLDER}
-# mkdir -p ${TMP_SPHINX_FOLDER}
-#
-# git clone --depth 1 https://github.com/shotgunsoftware/tk-core.git ${TMP_SPHINX_FOLDER}/git/tk-core
-# export PYTHONPATH=$PYTHONPATH:${TMP_SPHINX_FOLDER}/git/tk-core/python
-#
-# echo "converting sphinx -> markdown"
-# sphinx-build -b markdown -c ${THIS_DIR}/../sphinx -D project='foo' -D release='bar' -D version='0.0.0' ${TMP_SPHINX_FOLDER}/git/tk-core/docs ${TMP_BUILD_FOLDER}/tk-core
-#
-# git clone --depth 1 https://github.com/shotgunsoftware/tk-framework-shotgunutils.git ${TMP_SPHINX_FOLDER}/git/tk-framework-shotgunutils
-# export PYTHONPATH=$PYTHONPATH:${TMP_SPHINX_FOLDER}/git/tk-framework-shotgunutils/python
-#
-# echo "converting sphinx -> markdown"
-# sphinx-build -b markdown -c ${THIS_DIR}/../sphinx -D project='foo' -D release='bar' -D version='0.0.0' ${TMP_SPHINX_FOLDER}/git/tk-framework-shotgunutils/docs ${TMP_BUILD_FOLDER}/tk-framework-shotgunutils
-
-
-
-process_folders(input_folder)
+if os.path.exists(os.path.join(input_folder, "sphinx.yml")):
+    print 'detected sphinx config...'

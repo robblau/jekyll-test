@@ -1,0 +1,19 @@
+repositories:
+  Python API:
+    git_url: git@github.com:shotgunsoftware/python-api.git
+    parent: /
+  Toolkit Core:
+    git_url: git@github.com:shotgunsoftware/tk-core.git
+    parent: /
+  Utilities Framework:
+    git_url: git@github.com:shotgunsoftware/tk-framework-shotgunutils.git
+    parent: Frameworks
+  Widget Framework:
+    git_url: git@github.com:shotgunsoftware/tk-framework-qtwidgets.git
+    parent: Frameworks
+  Nuke Write Node:
+    git_url: git@github.com:shotgunsoftware/tk-nuke-writenode.git
+    parent: Toolkit App Reference
+  Publisher:
+    git_url: git@github.com:shotgunsoftware/tk-multi-publish.git
+    parent: Toolkit App Reference
