@@ -71,7 +71,7 @@ def add_frontmatter_to_files(folder):
 def sphinx_to_markdown(folder):
 
     # move the folder to be named .rst and replace with md build
-    source_folder = "{}.rst".format(folder)
+    source_folder = "{}_rst".format(folder)
     shutil.move(folder, source_folder)
 
     cmd = "sphinx-build -b markdown -c {config_path} {input} {output}".format(config_path=sphinx_config_path, input=source_folder, output=folder)
@@ -84,7 +84,7 @@ def sphinx_to_markdown(folder):
         print "error - aborting."
         sys.exit(1)
 
-    add_frontmatter_to_files(folder)
+    #add_frontmatter_to_files(folder)
 
 
 
