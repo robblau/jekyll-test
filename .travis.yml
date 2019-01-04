@@ -13,7 +13,16 @@ before_install:
   - sudo apt-get install -y pandoc
 
 install:
+  # install pyside - from https://stackoverflow.com/questions/24489588
+  - sudo apt-get install libqt4-dev
+  - pip install PySide --no-index --find-links https://parkin.github.io/python-wheelhouse/;
+  # Travis CI servers use virtualenvs, so we need to finish the install by the following
+  - python ~/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/pyside_postinstall.py -install
+  #
+  # jekyll dependencies
   - bundle install --gemfile=./doc_builder/Gemfile --deployment
+  #
+  # sphinx dependnecies
   - pip install -r ./doc_builder/requirements.txt
 
 script:
