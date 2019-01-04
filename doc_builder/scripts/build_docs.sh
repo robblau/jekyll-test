@@ -55,26 +55,6 @@ cp -r ${SOURCE}/* ${TMP_BUILD_FOLDER}
 echo "running sphinx builds..."
 python ${THIS_DIR}/build_sphinx.py ${TMP_BUILD_FOLDER}
 
-
-echo "cloning core..."
-TMP_SPHINX_FOLDER=${TMP_BUILD_FOLDER}_spx
-rm -rf ${TMP_SPHINX_FOLDER}
-mkdir -p ${TMP_SPHINX_FOLDER}
-
-git clone --depth 1 https://github.com/shotgunsoftware/tk-core.git ${TMP_SPHINX_FOLDER}/git/tk-core
-export PYTHONPATH=$PYTHONPATH:${TMP_SPHINX_FOLDER}/git/tk-core/python
-
-echo "converting sphinx -> markdown"
-sphinx-build -b markdown -c ${THIS_DIR}/../sphinx -D project='foo' -D release='bar' -D version='0.0.0' ${TMP_SPHINX_FOLDER}/git/tk-core/docs ${TMP_BUILD_FOLDER}/tk-core
-
-git clone --depth 1 https://github.com/shotgunsoftware/tk-framework-shotgunutils.git ${TMP_SPHINX_FOLDER}/git/tk-framework-shotgunutils
-export PYTHONPATH=$PYTHONPATH:${TMP_SPHINX_FOLDER}/git/tk-framework-shotgunutils/python
-
-echo "converting sphinx -> markdown"
-sphinx-build -b markdown -c ${THIS_DIR}/../sphinx -D project='foo' -D release='bar' -D version='0.0.0' ${TMP_SPHINX_FOLDER}/git/tk-framework-shotgunutils/docs ${TMP_BUILD_FOLDER}/tk-framework-shotgunutils
-
-
-
 echo "building jekyll site"
 BUNDLE_GEMFILE=${THIS_DIR}/../Gemfile JEKYLL_ENV=production \
 bundle exec jekyll build \
