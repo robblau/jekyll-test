@@ -21,6 +21,7 @@ markdown: kramdown
 theme: just-the-docs
 
 plugins:
+  # resolves relative links to images
   - jekyll-relative-links
 
 permalink: pretty
@@ -28,7 +29,8 @@ exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "pac
 
 # Enable or disable the site search
 search_enabled: true
-color_scheme: "dark"
+# note: theme also supports a dark theme
+#color_scheme: "dark"
 
 # Aux links for the upper right navigation
 aux_links:
