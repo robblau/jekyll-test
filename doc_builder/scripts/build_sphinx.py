@@ -31,50 +31,22 @@ def add_to_pythonpath(path):
     os.environ["PYTHONPATH"] = ":".join(pythonpath)
 
 
-def add_frontmatter_to_files(folder):
-    """
-    adds frontmatter to all md files, recursively
-    """
-    # for each generated markdown file, add a jekyll frontmatter chunk
-    for name in os.listdir(folder):
-        filename = os.path.join(folder, name)
 
-        if os.path.isdir(filename):
-            add_frontmatter_to_files(filename)
-
-        if filename.endswith(".md"):
-            with open(filename, "rt") as fh:
-                content = fh.read()
-
-            with open(filename, "wt") as fh:
-                # ---
-                # layout: default
-                # title: Release Notes
-                # nav_order: 11
-                # ---
-
-                # title is the filename without extension, capitalized
-                (name_no_ext, _) = os.path.splitext(name)
-
-                frontmatter = "---\nlayout: default\ntitle: {title}\n---\n\n- TOC\n{{:toc}}\n\n".format(
-                    title=name_no_ext.capitalize()
-                )
-                content = frontmatter + content
-
-                fh.write(content)
-
-
-
-
-
-
-def sphinx_to_markdown(folder):
+def sphinx_to_markdown(folder, custom_parents):
 
     # move the folder to be named .rst and replace with md build
     source_folder = "{}_rst".format(folder)
     shutil.move(folder, source_folder)
 
-    cmd = "sphinx-build -b markdown -c {config_path} {input} {output}".format(config_path=sphinx_config_path, input=source_folder, output=folder)
+    custom_parents = "&".join(["{}={}".format(page, parent) for (page, parent) in custom_parents.iteritems()])
+
+
+    cmd = "sphinx-build -b markdown -c {config_path} -D md_parents=\"{cp}\" {input} {output}".format(
+        config_path=sphinx_config_path,
+        input=source_folder,
+        output=folder,
+        cp=custom_parents
+    )
     print "executing {}".format(cmd)
 
     (ret_code, output) = commands.getstatusoutput(cmd)
@@ -84,7 +56,6 @@ def sphinx_to_markdown(folder):
         print "error - aborting."
         sys.exit(1)
 
-    #add_frontmatter_to_files(folder)
 
 
 
@@ -111,6 +82,9 @@ if os.path.exists(yaml_file):
     os.makedirs(sphinx_folder)
 
     index_files = []
+
+    # track which repos have a custom parent page
+    custom_parents = {}
 
     for (name, params) in repo_data.iteritems():
 
@@ -141,6 +115,8 @@ if os.path.exists(yaml_file):
         # copy docs folder
         shutil.move(os.path.join(git_folder, "docs"), target_folder)
 
+        if "parent" in params:
+            custom_parents[repo_name] = params["parent"]
 
     # construct an index.rst to link up all the docs
     with open(os.path.join(sphinx_folder, "index.rst"), "wt") as fh:
@@ -150,7 +126,7 @@ if os.path.exists(yaml_file):
         for index_file in index_files:
             fh.write("\t{}\n".format(index_file))
 
-    sphinx_to_markdown(sphinx_folder)
+    sphinx_to_markdown(sphinx_folder, custom_parents)
 
 
 
