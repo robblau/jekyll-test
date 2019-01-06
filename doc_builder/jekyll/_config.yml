@@ -20,8 +20,8 @@ description: Resources for Shotgun developers, including API documentation, Tool
 markdown: kramdown
 theme: just-the-docs
 
-#plugins:
-#  - jekyll-feed
+plugins:
+  - jekyll-relative-links
 
 permalink: pretty
 exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "script/", "LICENSE.txt", "lib/", "bin/", "README.md", "Rakefile"]
