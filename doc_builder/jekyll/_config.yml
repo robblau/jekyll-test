@@ -30,7 +30,7 @@ exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "pac
 # Enable or disable the site search
 search_enabled: true
 # note: theme also supports a dark theme
-#color_scheme: "dark"
+color_scheme: "dark"
 
 # Aux links for the upper right navigation
 aux_links:
