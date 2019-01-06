@@ -144,6 +144,8 @@ if os.path.exists(yaml_file):
 
     # construct an index.rst to link up all the docs
     with open(os.path.join(sphinx_folder, "index.rst"), "wt") as fh:
+        fh.write("Toolkit API Reference\n")
+        fh.write("=====================\n\n")
         fh.write(".. toctree::\n")
         for index_file in index_files:
             fh.write("\t{}\n".format(index_file))
