@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Glossary
+url: https://google.com
 nav_order: 13
 ---
 
