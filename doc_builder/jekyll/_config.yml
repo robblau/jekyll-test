@@ -27,9 +27,10 @@ plugins:
 
 
 # i18n
-languages: ["en", "sv"]
+languages: ["en", "sv", "ja"]
+lang_vars: ["English", "Svenska", "日本語"]
 default_lang: "en"
-exclude_from_localization: ["javascript", "images", "css"]
+exclude_from_localization: ["javascript", "css"]
 parallel_localization: true
 
 permalink: pretty

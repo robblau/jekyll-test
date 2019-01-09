@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Tutorials and Videos
+title: Exempelgenomgångar och videos
 nav_order: 10
 lang: sv
 permalink: /tutorials/
