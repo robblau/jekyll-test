@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Release Notes
+lang: en
 nav_order: 11
 ---
 

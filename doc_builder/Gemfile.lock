@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/manneohrstrom/just-the-docs.git
-  revision: 309b238400e1b4062f9c3c3ce6d06b470f92ac54
+  revision: 0bb901393291ad510429c1effa00e69bdd7e65ba
   specs:
     just-the-docs (0.2.1)
       jekyll (~> 3.8.5)
@@ -37,6 +37,8 @@ GEM
       safe_yaml (~> 1.0)
     jekyll-feed (0.11.0)
       jekyll (~> 3.3)
+    jekyll-polyglot (1.3.1)
+      jekyll (>= 3.0)
     jekyll-relative-links (0.5.3)
       jekyll (~> 3.3)
     jekyll-sass-converter (1.5.2)
@@ -72,6 +74,7 @@ PLATFORMS
 DEPENDENCIES
   jekyll (~> 3.8.5)
   jekyll-feed (~> 0.6)
+  jekyll-polyglot
   jekyll-relative-links
   just-the-docs!
   tzinfo-data

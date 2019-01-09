@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Knowledge Base
+lang: en
 nav_order: 12
 ---
 

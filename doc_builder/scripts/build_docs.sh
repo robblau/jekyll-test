@@ -53,6 +53,9 @@ mkdir -p ${TMP_BUILD_FOLDER}
 echo "copying markdown docs scaffold into build location"
 cp -r ${SOURCE}/* ${TMP_BUILD_FOLDER}
 
+# temp hack
+export PYTHONPATH=/tmp/smb:$PYTHONPATH
+
 echo "running sphinx builds..."
 python ${THIS_DIR}/build_sphinx.py ${TMP_BUILD_FOLDER}
 
